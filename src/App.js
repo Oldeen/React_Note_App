@@ -1,8 +1,12 @@
 import Header from "./components/Header";
 import NotesPage, { loader as notesPageLoader } from "./pages/NotesPage";
-import NotePage, { loader as noteLoader } from "./pages/NotePage";
+import NotePage, {
+  loader as noteLoader,
+  updatenoteaction,
+  deletenoteaction,
+} from "./pages/NotePage";
 
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Outlet } from "react-router-dom";
 import ErrorPage from "./pages/Error-page";
 import "./App.css";
 
@@ -11,6 +15,7 @@ const Root = () => {
     <div className="container dark">
       <div className="app">
         <Header />
+        <Outlet />
       </div>
     </div>
   );
@@ -21,6 +26,7 @@ const router = createBrowserRouter([
     path: "/",
     element: <Root />,
     errorElement: <ErrorPage />,
+
     children: [
       {
         path: "/",
@@ -31,6 +37,17 @@ const router = createBrowserRouter([
         path: "NotePage/:id",
         element: <NotePage />,
         loader: noteLoader,
+      },
+      {
+        path: "NotePage/:id/update",
+        action: updatenoteaction,
+        element: <NotesPage />,
+      },
+      {
+        path: "NotePage/:id/delete",
+        action: deletenoteaction,
+        element: <NotesPage />,
+        loader: notesPageLoader,
       },
     ],
   },
