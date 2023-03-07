@@ -4,6 +4,8 @@ import NotePage, {
   loader as noteLoader,
   updatenoteaction,
   deletenoteaction,
+  createAction,
+  createloader,
 } from "./pages/NotePage";
 
 import { createBrowserRouter, Outlet } from "react-router-dom";
@@ -34,20 +36,30 @@ const router = createBrowserRouter([
         loader: notesPageLoader,
       },
       {
-        path: "NotePage/:id",
+        path: "/NotePage/:id",
         element: <NotePage />,
         loader: noteLoader,
       },
       {
-        path: "NotePage/:id/update",
+        path: "/NotePage/:id/update",
         action: updatenoteaction,
         element: <NotesPage />,
       },
       {
-        path: "NotePage/:id/delete",
+        path: "/NotePage/:id/delete",
         action: deletenoteaction,
         element: <NotesPage />,
         loader: notesPageLoader,
+      },
+
+      {
+        path: "/Create",
+        action: createAction,
+        loader: createloader,
+      },
+      {
+        path: "/NotePage/new",
+        element: <NotePage />,
       },
     ],
   },
